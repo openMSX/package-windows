@@ -6,12 +6,14 @@
 ; 		http://nsis.sourceforge.net
 ;----------------------------------------------------------------------------------------
 
+Icon dist\openmsx.ico
+
 ; Modern UI options
 !include "MUI.nsh"
  
-!define  MUI_COMPONENTSPAGE_SMALLDESC
-
-Icon dist\openmsx.ico
+!define MUI_COMPONENTSPAGE_SMALLDESC
+!define MUI_ICON dist\openmsx.ico
+!define MUI_UNICON dist\openmsx.ico
 
 ; The name of the installer
 Name "openMSX"
@@ -44,7 +46,7 @@ ReserveFile "integrate.ini"
 Var "Integrate"
 
 ;--------------------------------
-Section "openMSX (required)"
+Section "openMSX (required)" SecOpenMSX
 
   SectionIn RO
 
@@ -65,13 +67,13 @@ Section "openMSX (required)"
 
 SectionEnd
 
-Section "Catapult"
+Section "Catapult" secCatapult
 
   File /r dist\Catapult
   
 SectionEnd
 
-Section "Start menu Shortcuts"
+Section "Start menu Shortcuts" secShortcuts
 
   CreateDirectory "$SMPROGRAMS\openMSX"
   CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection" 
@@ -82,6 +84,20 @@ Section "Start menu Shortcuts"
   CreateShortCut "$SMPROGRAMS\openMSX\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0 SW_SHOWNORMAL "" "Uninstall openMSX and Catapult"
  
 SectionEnd
+
+;--------------------------------
+; Descriptions
+
+; Language strings
+LangString DESC_SecOpenMSX ${LANG_ENGLISH} "The emulator that aims for perfection."
+LangString DESC_SecCatapult ${LANG_ENGLISH} "The GUI and launcher for openMSX."
+LangString DESC_SecShortcuts ${LANG_ENGLISH} "Create startmenu shortcuts for openMSX and Catapult."
+
+!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecOpenMSX} $(DESC_SecOpenMSX)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecCatapult} $(DESC_SecCatapult)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} $(DESC_SecShortcuts)
+!insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section "Uninstall"
 
