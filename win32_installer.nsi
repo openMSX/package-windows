@@ -52,7 +52,6 @@ Section "openMSX (required)" SecOpenMSX
 
   SetOutPath $INSTDIR
   
-  File /r dist\Contrib
   File /r dist\doc
   File /r dist\doc.dll
   File /r dist\share
