@@ -1,6 +1,6 @@
 ; OpenMSX install script
 ;
-; This NSIS script creates an installation for openmsx and optionaly Catapult.
+; This NSIS script creates an installation for openMSX and optionaly Catapult.
 ; See for license and other information about NSIS :
 ;
 ; 		http://nsis.sourceforge.net
@@ -68,7 +68,7 @@ Section "openMSX (required)"
 
 SectionEnd
 
-Section "Catapult (Launcher and GUI)"
+Section "Catapult"
 
   File /r derived\Catapult
   
@@ -77,7 +77,7 @@ SectionEnd
 Section "Start menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\openMSX"
-  CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The msx emulator that aims for perfection" 
+  CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection" 
   
   IfFileExists $INSTDIR\Catapult\bin\catapult.exe 0 noCatapult
   CreateShortCut "$SMPROGRAMS\openMSX\Catapult.lnk" "$INSTDIR\Catapult\bin\catapult.exe" "" "$INSTDIR\Catapult\bin\catapult.exe" 0 SW_SHOWNORMAL "" "Launcher and GUI for openMSX"
