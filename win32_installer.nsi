@@ -11,13 +11,10 @@
  
 !define  MUI_COMPONENTSPAGE_SMALLDESC
 
-Icon derived\openmsx.ico
+Icon dist\openmsx.ico
 
 ; The name of the installer
 Name "openMSX"
-
-; The file to write
-OutFile "openmsx040_full.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\openMSX
@@ -53,10 +50,10 @@ Section "openMSX (required)"
 
   SetOutPath $INSTDIR
   
-  File /r derived\Contrib
-  File /r derived\doc
-  File /r derived\share
-  File derived\*.*
+  File /r dist\Contrib
+  File /r dist\doc
+  File /r dist\share
+  File dist\*.*
 
   IntCmp $Integrate 0 NoIntegration 0
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\openMSX" "DisplayName" "openMSX"
@@ -70,7 +67,7 @@ SectionEnd
 
 Section "Catapult"
 
-  File /r derived\Catapult
+  File /r dist\Catapult
   
 SectionEnd
 
