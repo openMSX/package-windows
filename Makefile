@@ -9,7 +9,7 @@ default: all
 
 # Name of the installer
 include ../openMSX/build/version.mk
-PACKAGE_FULL=$(PACKAGE_NAME)-$(PACKAGE_VERSION)-R1-win32-bin.exe
+PACKAGE_FULL=$(PACKAGE_NAME)-$(PACKAGE_VERSION)-win32-bin.exe
 
 # Name of the installer script
 INSTALLER_SCRIPT=win32_installer.nsi
