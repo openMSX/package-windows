@@ -136,8 +136,8 @@ Function UninstallIntegration
 FunctionEnd
 
 Function .onInstSuccess
-    MessageBox MB_OK "Please put the system roms in the following directory: $\r$OUTDIR\share\systemroms"
-      
+    MessageBox MB_OK "If you want to emulate real MSX systems and not only the free C-BIOS machines, put the system ROMs in the following directory: $\r$OUTDIR\share\systemroms"
+ 
 FunctionEnd
 
 
