@@ -54,6 +54,7 @@ Section "openMSX (required)" SecOpenMSX
   
   File /r dist\Contrib
   File /r dist\doc
+  File /r dist\doc.dll
   File /r dist\share
   File dist\*.*
 
@@ -134,7 +135,10 @@ Function UninstallIntegration
 
 FunctionEnd
 
-
+Function .onInstSuccess
+    MessageBox MB_OK "Please put the system roms in the following directory: $\r$OUTDIR\share\systemroms"
+      
+FunctionEnd
 
 
 
