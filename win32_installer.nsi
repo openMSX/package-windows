@@ -89,7 +89,7 @@ SectionEnd
 ; Descriptions
 
 ; Language strings
-LangString DESC_SecOpenMSX ${LANG_ENGLISH} "The emulator that aims for perfection."
+LangString DESC_SecOpenMSX ${LANG_ENGLISH} "The MSX emulator that aims for perfection."
 LangString DESC_SecCatapult ${LANG_ENGLISH} "The GUI and launcher for openMSX."
 LangString DESC_SecShortcuts ${LANG_ENGLISH} "Create startmenu shortcuts for openMSX and Catapult."
 
