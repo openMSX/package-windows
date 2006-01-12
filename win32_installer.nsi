@@ -101,7 +101,7 @@ LangString DESC_SecShortcuts ${LANG_ENGLISH} "Create startmenu shortcuts for ope
 
 Section "Uninstall"
 
-MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "Do you want to remove all userfiles and ROM's?" IDYES removeAllFiles IDNO removeOnlyInstalledFiles
+MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "Do you want to remove all user files and ROMs?" IDYES removeAllFiles IDNO removeOnlyInstalledFiles
 
 removeAllFiles:
   RMDir /r "$INSTDIR"
