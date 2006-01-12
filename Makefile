@@ -5,7 +5,7 @@
 
 # Default target; make sure this is always the first target in this Makefile.
 MAKECMDGOALS?=default
-default: all 
+default: all
 
 # Name of the installer
 include ../openMSX/build/version.mk
@@ -28,23 +28,23 @@ SED_DIST_PATH=$(subst /,\/,$(DIST_PATH))
 # Build Rules
 # ==========
 
-all: openmsx catapult findnsis.exe w32_package 
+all: openmsx catapult findnsis.exe w32_package
 
 .PHONY: openmsx catapult w32_package
 
 openmsx:
 	@echo "Setting up files for openMSX"
 	@OPENMSX_INSTALL=$(FULL_DIST_PATH) make -C ../openMSX install
-	
+
 catapult:
 	@echo "Setting up files for Catapult"
 	@CATAPULT_PREBUILT=true CATAPULT_INSTALL=$(FULL_DIST_PATH)/Catapult make -C ../Catapult install
-	
+
 findnsis.exe: findnsis.cc
 	@g++ $^ -o $(BUILD_BASE)/$@
 
 NSIS_INSTALLER_PATH=`$(BUILD_BASE)/findnsis`
-NSIS_INSTALLER=$(NSIS_INSTALLER_PATH)/makensis.exe
+NSIS_INSTALLER="$(NSIS_INSTALLER_PATH)\makensis.exe"
 
 w32_package:
 	@mv $(FULL_DIST_PATH)/bin/openmsx.exe $(FULL_DIST_PATH)
@@ -56,7 +56,7 @@ endif
 	@find $(DIST_PATH) -name "*" -type f | sed -e 's/$(SED_DIST_PATH)\//Delete $$INSTDIR\\/' -e \
 	's/\//\\/g' > $(BUILD_BASE)/RemoveFileList.nsh
 	@find $(DIST_PATH) -name "*" -type d | sort -r | sed -e 's/$(SED_DIST_PATH)\//RMDir $$INSTDIR\\/' \
-	-e '$$d' -e 's/\//\\/g'  >> $(BUILD_BASE)/RemoveFileList.nsh	
+	-e '$$d' -e 's/\//\\/g'  >> $(BUILD_BASE)/RemoveFileList.nsh
 	@cp -f win32_installer.nsi $(BUILD_BASE)
 	@cp -f integrate.ini $(BUILD_BASE)
 	@echo "Creating installer: $(PACKAGE_FULL)"
