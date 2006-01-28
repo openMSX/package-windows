@@ -11,6 +11,10 @@ default: all
 include ../openMSX/build/version.mk
 PACKAGE_FULL=$(PACKAGE_NAME)-$(PACKAGE_VERSION)-win32-bin.exe
 
+# Make this flavour for the package
+export OPENMSX_FLAVOUR:=i686
+export CATAPULT_FLAVOUR:=i686
+
 # Name of the installer script
 INSTALLER_SCRIPT=win32_installer.nsi
 
@@ -34,11 +38,11 @@ all: openmsx catapult findnsis.exe w32_package
 
 openmsx:
 	@echo "Setting up files for openMSX"
-	@OPENMSX_INSTALL=$(FULL_DIST_PATH) make -C ../openMSX install
+	@OPENMSX_INSTALL=$(FULL_DIST_PATH) make -C ../openmsx-0.6.0 install
 
 catapult:
 	@echo "Setting up files for Catapult"
-	@CATAPULT_PREBUILT=true CATAPULT_INSTALL=$(FULL_DIST_PATH)/Catapult make -C ../Catapult install
+	@CATAPULT_INSTALL=$(FULL_DIST_PATH)/Catapult make -C ../openmsx-catapult-0.6.0-R2 install
 
 findnsis.exe: findnsis.cc
 	@g++ $^ -o $(BUILD_BASE)/$@
