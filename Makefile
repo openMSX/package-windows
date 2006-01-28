@@ -38,11 +38,11 @@ all: openmsx catapult findnsis.exe w32_package
 
 openmsx:
 	@echo "Setting up files for openMSX"
-	@OPENMSX_INSTALL=$(FULL_DIST_PATH) make -C ../openmsx-0.6.0 install
+	@OPENMSX_INSTALL=$(FULL_DIST_PATH) make -C ../openMSX install
 
 catapult:
 	@echo "Setting up files for Catapult"
-	@CATAPULT_INSTALL=$(FULL_DIST_PATH)/Catapult make -C ../openmsx-catapult-0.6.0-R2 install
+	@CATAPULT_INSTALL=$(FULL_DIST_PATH)/Catapult make -C ../Catapult install
 
 findnsis.exe: findnsis.cc
 	@g++ $^ -o $(BUILD_BASE)/$@
