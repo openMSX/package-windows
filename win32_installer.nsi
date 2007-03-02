@@ -73,7 +73,7 @@ Section "Catapult" SecCatapult
 
 SectionEnd
 
-Section "Videoplayer codec (copy only)" SecCodec
+Section "Videoplayer codec" SecCodec
 
   File /r dist\codec
 
@@ -83,6 +83,20 @@ Section "Start menu Shortcuts" SecShortcuts
 
   CreateDirectory "$SMPROGRAMS\openMSX"
   CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection"
+
+  IfFileExists $INSTDIR\codec\zmbv.inf 0 noCodec
+  SetOutPath "$INSTDIR\codec"
+  ClearErrors
+  ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
+  IfErrors we_9x we_nt
+  we_nt:
+  CreateShortCut "$SMPROGRAMS\openMSX\Install videoplayer codec.lnk" "rundll32" "setupapi,InstallHinfSection DefaultInstall 128 $INSTDIR\codec\zmbv.inf"
+  goto endCodec
+  we_9x:
+  CreateShortCut "$SMPROGRAMS\openMSX\Install videoplayer codec.lnk" "rundll" "setupx.dll,InstallHinfSection DefaultInstall 128 $INSTDIR\codec\zmbv.inf"
+  endCodec:
+  SetOutPath $INSTDIR
+  noCodec:
 
   IfFileExists $INSTDIR\Catapult\bin\catapult.exe 0 noCatapult
   CreateShortCut "$SMPROGRAMS\openMSX\Catapult.lnk" "$INSTDIR\Catapult\bin\catapult.exe" "" "$INSTDIR\Catapult\bin\catapult.exe" 0 SW_SHOWNORMAL "" "Launcher and GUI for openMSX"
