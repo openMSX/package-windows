@@ -1,6 +1,6 @@
 ; OpenMSX install script
 ;
-; This NSIS script creates an installation for openMSX and optionaly Catapult.
+; This NSIS script creates an installation for openMSX and optionally Catapult.
 ; See for license and other information about NSIS :
 ;
 ; 		http://nsis.sourceforge.net
@@ -10,7 +10,7 @@ Icon dist\openmsx.ico
 
 ; Modern UI options
 !include "MUI.nsh"
- 
+
 !define MUI_COMPONENTSPAGE_SMALLDESC
 !define MUI_ICON dist\openmsx.ico
 !define MUI_UNICON dist\openmsx.ico
@@ -51,7 +51,7 @@ Section "openMSX (required)" SecOpenMSX
   SectionIn RO
 
   SetOutPath $INSTDIR
-  
+
   File /r dist\doc
   File /r dist\doc.dll
   File /r dist\share
@@ -67,22 +67,28 @@ Section "openMSX (required)" SecOpenMSX
 
 SectionEnd
 
-Section "Catapult" secCatapult
+Section "Catapult" SecCatapult
 
   File /r dist\Catapult
-  
+
 SectionEnd
 
-Section "Start menu Shortcuts" secShortcuts
+Section "Videoplayer codec (copy only)" SecCodec
+
+  File /r dist\codec
+
+SectionEnd
+
+Section "Start menu Shortcuts" SecShortcuts
 
   CreateDirectory "$SMPROGRAMS\openMSX"
-  CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection" 
-  
+  CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection"
+
   IfFileExists $INSTDIR\Catapult\bin\catapult.exe 0 noCatapult
   CreateShortCut "$SMPROGRAMS\openMSX\Catapult.lnk" "$INSTDIR\Catapult\bin\catapult.exe" "" "$INSTDIR\Catapult\bin\catapult.exe" 0 SW_SHOWNORMAL "" "Launcher and GUI for openMSX"
   noCatapult:
   CreateShortCut "$SMPROGRAMS\openMSX\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0 SW_SHOWNORMAL "" "Uninstall openMSX and Catapult"
- 
+
 SectionEnd
 
 ;--------------------------------
@@ -91,11 +97,13 @@ SectionEnd
 ; Language strings
 LangString DESC_SecOpenMSX ${LANG_ENGLISH} "The MSX emulator that aims for perfection."
 LangString DESC_SecCatapult ${LANG_ENGLISH} "The GUI and launcher for openMSX."
+LangString DESC_SecCodec $(LANG_ENGLISH) "The codec used to play openMSX videos."
 LangString DESC_SecShortcuts ${LANG_ENGLISH} "Create startmenu shortcuts for openMSX and Catapult."
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SecOpenMSX} $(DESC_SecOpenMSX)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecCatapult} $(DESC_SecCatapult)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecCodec} $(DESC_SecCodec)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} $(DESC_SecShortcuts)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -110,7 +118,7 @@ removeOnlyInstalledFiles:
   Delete "$INSTDIR\Uninstall.exe"
   !include "RemoveFileList.nsh"
   RMDir "$INSTDIR"
-removeRegKey:  
+removeRegKey:
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\openMSX"
 
   IfFileExists $SMPROGRAMS\openMSX 0 noRemoveShortCuts
@@ -136,18 +144,5 @@ FunctionEnd
 
 Function .onInstSuccess
     MessageBox MB_OK "If you want to emulate real MSX systems and not only the free C-BIOS machines, put the system ROMs in the following directory: $\r$OUTDIR\share\systemroms"
- 
+
 FunctionEnd
-
-
-
-
-
-
-
-
-
-
-
-
-
