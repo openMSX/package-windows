@@ -15,7 +15,7 @@ PACKAGE_FULL=$(PACKAGE_NAME)-$(PACKAGE_VERSION)-win32-bin.exe
 export OPENMSX_FLAVOUR:=i686
 export CATAPULT_FLAVOUR:=i686
 
-# Check if the stuff in a different directory
+# Check if the stuff is in a different directory
 OPENMSX_PATH?="../openMSX"
 CATAPULT_PATH?="../Catapult"
 
@@ -69,4 +69,3 @@ endif
 	@cp -f integrate.ini $(BUILD_BASE)
 	@echo "Creating installer: $(PACKAGE_FULL)"
 	@$(NSIS_INSTALLER) //V2 "//XOutFile $(PACKAGE_FULL)" $(BUILD_BASE)/$(INSTALLER_SCRIPT)
-
