@@ -52,6 +52,7 @@ Section "openMSX (required)" SecOpenMSX
 
   SetOutPath $INSTDIR
 
+  File /r dist\codec
   File /r dist\doc
   File /r dist\doc.dll
   File /r dist\share
@@ -73,18 +74,11 @@ Section "Catapult" SecCatapult
 
 SectionEnd
 
-Section "Videoplayer codec" SecCodec
-
-  File /r dist\codec
-
-SectionEnd
-
 Section "Start menu Shortcuts" SecShortcuts
 
   CreateDirectory "$SMPROGRAMS\openMSX"
   CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection"
 
-  IfFileExists $INSTDIR\codec\zmbv.inf 0 noCodec
   SetOutPath "$INSTDIR\codec"
   ClearErrors
   ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows NT\CurrentVersion" CurrentVersion
@@ -96,7 +90,6 @@ Section "Start menu Shortcuts" SecShortcuts
   CreateShortCut "$SMPROGRAMS\openMSX\Install videoplayer codec.lnk" "rundll" "setupx.dll,InstallHinfSection DefaultInstall 128 $INSTDIR\codec\zmbv.inf"
   endCodec:
   SetOutPath $INSTDIR
-  noCodec:
 
   IfFileExists $INSTDIR\Catapult\bin\catapult.exe 0 noCatapult
   CreateShortCut "$SMPROGRAMS\openMSX\Catapult.lnk" "$INSTDIR\Catapult\bin\catapult.exe" "" "$INSTDIR\Catapult\bin\catapult.exe" 0 SW_SHOWNORMAL "" "Launcher and GUI for openMSX"
@@ -111,13 +104,11 @@ SectionEnd
 ; Language strings
 LangString DESC_SecOpenMSX ${LANG_ENGLISH} "The MSX emulator that aims for perfection."
 LangString DESC_SecCatapult ${LANG_ENGLISH} "The GUI and launcher for openMSX."
-LangString DESC_SecCodec $(LANG_ENGLISH) "The codec used to play openMSX videos."
 LangString DESC_SecShortcuts ${LANG_ENGLISH} "Create startmenu shortcuts for openMSX and Catapult."
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SecOpenMSX} $(DESC_SecOpenMSX)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecCatapult} $(DESC_SecCatapult)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SecCodec} $(DESC_SecCodec)
   !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} $(DESC_SecShortcuts)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
