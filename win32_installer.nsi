@@ -94,6 +94,7 @@ Section "Start menu Shortcuts" SecShortcuts
 
   IfFileExists $INSTDIR\Catapult\bin\catapult.exe 0 noCatapult
   CreateShortCut "$SMPROGRAMS\openMSX\Catapult.lnk" "$INSTDIR\Catapult\bin\catapult.exe" "" "$INSTDIR\Catapult\bin\catapult.exe" 0 SW_SHOWNORMAL "" "Launcher and GUI for openMSX"
+  CreateShortCut "$SMPROGRAMS\openMSX\Catapult Manual.lnk" "$INSTDIR\Catapult\doc\manual\index.html" "" "" 0 SW_SHOWNORMAL "" "openMSX Catapult manual"
   noCatapult:
   CreateShortCut "$SMPROGRAMS\openMSX\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0 SW_SHOWNORMAL "" "Uninstall openMSX and Catapult"
 
