@@ -78,6 +78,7 @@ Section "Start menu Shortcuts" SecShortcuts
 
   CreateDirectory "$SMPROGRAMS\openMSX"
   CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection"
+  CreateShortCut "$SMPROGRAMS\openMSX\openMSX Manual.lnk" "$INSTDIR\doc\manual\index.html" "" "" 0 SW_SHOWNORMAL "" "openMSX manual"
 
   SetOutPath "$INSTDIR\codec"
   ClearErrors
