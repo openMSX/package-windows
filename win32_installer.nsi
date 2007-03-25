@@ -53,7 +53,7 @@ Section "openMSX (required)" SecOpenMSX
   SetOutPath $INSTDIR
 
   File /r dist\codec
-  File /r dist\doc
+  File /r /x Catapult dist\doc
   File /r dist\doc.dll
   File /r dist\share
   File dist\*.*
