@@ -7,17 +7,17 @@
 MAKECMDGOALS?=default
 default: all
 
+# Check if the stuff is in a different directory
+OPENMSX_PATH?="../openMSX"
+CATAPULT_PATH?="../Catapult"
+
 # Name of the installer
-include ../openMSX/build/version.mk
+include $(OPENMSX_PATH)/build/version.mk
 PACKAGE_FULL=$(PACKAGE_NAME)-$(PACKAGE_VERSION)-win32-bin.exe
 
 # Make this flavour for the package
 export OPENMSX_FLAVOUR:=i686
 export CATAPULT_FLAVOUR:=i686
-
-# Check if the stuff is in a different directory
-OPENMSX_PATH?="../openMSX"
-CATAPULT_PATH?="../Catapult"
 
 # Name of the installer script
 INSTALLER_SCRIPT=win32_installer.nsi
