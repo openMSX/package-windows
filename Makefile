@@ -8,8 +8,8 @@ MAKECMDGOALS?=default
 default: all
 
 # Check if the stuff is in a different directory
-OPENMSX_PATH?="../openMSX"
-CATAPULT_PATH?="../Catapult"
+OPENMSX_PATH?=../openMSX
+CATAPULT_PATH?=../Catapult
 
 # Name of the installer
 include $(OPENMSX_PATH)/build/version.mk
