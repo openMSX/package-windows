@@ -42,7 +42,9 @@ all: openmsx catapult findnsis.exe w32_package
 
 openmsx:
 	@echo "Setting up files for openMSX"
-	@OPENMSX_INSTALL=$(FULL_DIST_PATH) make -C $(OPENMSX_PATH) install
+	@make -C $(OPENMSX_PATH) staticbindist OPENMSX_FLAVOUR=$(OPENMSX_FLAVOUR)
+	@mkdir -p $(FULL_DIST_PATH)
+	@cp -Rf $(OPENMSX_PATH)/derived/x86-mingw32-$(OPENMSX_FLAVOUR)/bindist/install/* $(FULL_DIST_PATH)
 
 catapult:
 	@echo "Setting up files for Catapult"
@@ -55,7 +57,6 @@ NSIS_INSTALLER_PATH=`$(BUILD_BASE)/findnsis`
 NSIS_INSTALLER="$(NSIS_INSTALLER_PATH)\makensis.exe"
 
 w32_package:
-	@mv $(FULL_DIST_PATH)/bin/openmsx.exe $(FULL_DIST_PATH)
 	@rm -rf $(FULL_DIST_PATH)/bin
 ifeq ($(ADDFILES_PATH),)
 	@$(error Please set the ADDFILES_PATH environment variable)
