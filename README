@@ -1,0 +1,31 @@
+This is the Win32 packaging project.
+
+Here's a short manual, last updated for openMSX 0.6.3.
+
+How to get an installer:
+
+1) make sure you can compile openMSX and Catapult.
+
+See their manuals. If the relative path to the openMSX source dir and the 
+Catapult source dir is not ../openMSX and ../Catapult respectively,
+you need to define the environment variable OPENMSX_PATH and/or
+CATAPULT_PATH that says where the source trees are.
+
+2) prepare a directory where you put the additional files that have to end up
+in the package.
+
+For now, this is:
+- the DLL's that Catapult needs (use Catapult/bin as dir structure)
+- extra documentation
+
+This directory should be pointed to in ADDFILES_PATH.
+
+3) give the make command. 
+
+Example:
+
+$ ADDFILES_PATH=/c/openmsx-package-win32/addfiles  OPENMSX_PATH=/c/openmsx-branch_0_6_3 make
+
+The additional files are in /c/openmsx-package-win32-addfiles, we want to use
+the openMSX sources in /c/openmsx-branch_0_6_3 and apparently Catapult is
+in ../Catapult.
