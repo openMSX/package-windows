@@ -42,12 +42,17 @@ all: openmsx catapult findnsis.exe w32_package
 
 openmsx:
 	@echo "Setting up files for openMSX"
+	@echo "  Making static build..."
 	@make -C $(OPENMSX_PATH) staticbindist OPENMSX_FLAVOUR=$(OPENMSX_FLAVOUR)
+	@echo "  Copying results to target directory..."
 	@mkdir -p $(FULL_DIST_PATH)
 	@cp -Rf $(OPENMSX_PATH)/derived/x86-mingw32-$(OPENMSX_FLAVOUR)/bindist/install/* $(FULL_DIST_PATH)
+	@echo "  Copy ico version of icon to target directory..."
+	@cp $(OPENMSX_PATH)/src/resource/openmsx.ico $(FULL_DIST_PATH)/share/icons
 
 catapult:
 	@echo "Setting up files for Catapult"
+	@echo "  Making build..."
 	@CATAPULT_INSTALL=$(FULL_DIST_PATH)/Catapult make -C $(CATAPULT_PATH) install
 
 findnsis.exe: findnsis.cc
@@ -61,7 +66,10 @@ w32_package:
 ifeq ($(ADDFILES_PATH),)
 	@$(error Please set the ADDFILES_PATH environment variable)
 endif
+# copy the addfiles stuff
 	@cp -Rf $(ADDFILES_PATH)/* $(FULL_DIST_PATH)
+# copy the codec to the target dir, without svn admin stuff (reuse openMSX script)
+	@$(OPENMSX_PATH)/build/install-recursive.sh $(BUILD_BASE)/../ $(BUILD_BASE)/../codec $(FULL_DIST_PATH)
 	@find $(DIST_PATH) -name "*" -type f | sed -e 's/$(SED_DIST_PATH)\//Delete $$INSTDIR\\/' -e \
 	's/\//\\/g' > $(BUILD_BASE)/RemoveFileList.nsh
 	@find $(DIST_PATH) -name "*" -type d | sort -r | sed -e 's/$(SED_DIST_PATH)\//RMDir $$INSTDIR\\/' \

@@ -6,14 +6,14 @@
 ; 		http://nsis.sourceforge.net
 ;----------------------------------------------------------------------------------------
 
-Icon dist\openmsx.ico
+Icon dist\share\icons\openmsx.ico
 
 ; Modern UI options
 !include "MUI.nsh"
 
 !define MUI_COMPONENTSPAGE_SMALLDESC
-!define MUI_ICON dist\openmsx.ico
-!define MUI_UNICON dist\openmsx.ico
+!define MUI_ICON dist\share\icons\openmsx.ico
+!define MUI_UNICON dist\share\icons\openmsx.ico
 
 ; The name of the installer
 Name "openMSX"
@@ -54,7 +54,6 @@ Section "openMSX (required)" SecOpenMSX
 
   File /r dist\codec
   File /r /x Catapult dist\doc
-  File /r dist\doc.dll
   File /r dist\share
   File dist\*.*
 
@@ -77,7 +76,7 @@ SectionEnd
 Section "Start menu Shortcuts" SecShortcuts
 
   CreateDirectory "$SMPROGRAMS\openMSX"
-  CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection"
+  CreateShortCut "$SMPROGRAMS\openMSX\openMSX.lnk" "$INSTDIR\openmsx.exe" "" "$INSTDIR\share\icons\openmsx.ico" 0 SW_SHOWNORMAL "" "The MSX emulator that aims for perfection"
   CreateShortCut "$SMPROGRAMS\openMSX\openMSX Manual.lnk" "$INSTDIR\doc\manual\index.html" "" "" 0 SW_SHOWNORMAL "" "openMSX manual"
 
   SetOutPath "$INSTDIR\codec"
