@@ -46,7 +46,7 @@ openmsx:
 	@make -C $(OPENMSX_PATH) staticbindist OPENMSX_FLAVOUR=$(OPENMSX_FLAVOUR)
 	@echo "  Copying results to target directory..."
 	@mkdir -p $(FULL_DIST_PATH)
-	@cp -Rf $(OPENMSX_PATH)/derived/x86-mingw32-$(OPENMSX_FLAVOUR)/bindist/install/* $(FULL_DIST_PATH)
+	@cp -Rf $(OPENMSX_PATH)/derived/x86-mingw32-$(OPENMSX_FLAVOUR)-3rd/bindist/install/* $(FULL_DIST_PATH)
 	@echo "  Copy ico version of icon to target directory..."
 	@cp $(OPENMSX_PATH)/src/resource/openmsx.ico $(FULL_DIST_PATH)/share/icons
 
