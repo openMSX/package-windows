@@ -9,11 +9,24 @@ default: all
 
 # Check if the stuff is in a different directory
 OPENMSX_PATH?=../openMSX
-CATAPULT_PATH?=../Catapult
+CATAPULT_PATH?=../wxCatapult
+
+# Python Interpreter
+# ==================
+
+# We need Python from the 2.x series, version 2.5 or higher.
+# Usually this executable is available as just "python", but on some systems
+# you might have to be more specific, for example "python2" or "python2.6".
+# Or if the Python interpreter is not in the search path, you can specify its
+# full path.
+PYTHON?=python
 
 # Name of the installer
-include $(OPENMSX_PATH)/build/version.mk
-PACKAGE_FULL=$(PACKAGE_NAME)-$(PACKAGE_VERSION)-win32-bin.exe
+# include $(OPENMSX_PATH)/build/version.mk
+VERSIONED_PACKAGE_NAME:=$(shell cd $(OPENMSX_PATH); PYTHONPATH=$(OPENMSX_PATH)/build $(PYTHON) -c \
+	"import version; print version.getVersionedPackageName()" \
+	)
+PACKAGE_FULL=$(VERSIONED_PACKAGE_NAME)-win32-bin.exe
 
 # Make this flavour for the package
 export OPENMSX_FLAVOUR:=i686
@@ -69,7 +82,7 @@ endif
 # copy the addfiles stuff
 	@cp -Rf $(ADDFILES_PATH)/* $(FULL_DIST_PATH)
 # copy the codec to the target dir, without svn admin stuff (reuse openMSX script)
-	@$(OPENMSX_PATH)/build/install-recursive.sh $(BUILD_BASE)/../ $(BUILD_BASE)/../codec $(FULL_DIST_PATH)
+	@$(shell PYTHONPATH=$(OPENMSX_PATH)/build $(PYTHON) install-recursive.py $(BUILD_BASE)/../ $(BUILD_BASE)/../codec $(FULL_DIST_PATH))
 	@find $(DIST_PATH) -name "*" -type f | sed -e 's/$(SED_DIST_PATH)\//Delete $$INSTDIR\\/' -e \
 	's/\//\\/g' > $(BUILD_BASE)/RemoveFileList.nsh
 	@find $(DIST_PATH) -name "*" -type d | sort -r | sed -e 's/$(SED_DIST_PATH)\//RMDir $$INSTDIR\\/' \
