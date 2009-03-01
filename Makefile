@@ -22,7 +22,6 @@ CATAPULT_PATH?=../wxCatapult
 PYTHON?=python
 
 # Name of the installer
-# include $(OPENMSX_PATH)/build/version.mk
 VERSIONED_PACKAGE_NAME:=$(shell cd $(OPENMSX_PATH); PYTHONPATH=$(OPENMSX_PATH)/build $(PYTHON) -c \
 	"import version; print version.getVersionedPackageName()" \
 	)
